@@ -14,9 +14,9 @@ SLOPES = [
 if __name__ == "__main__":
     with timer():
         solution = 1
+        forest = Forest(PATH)
         for slope in SLOPES:
             trees, x, y = 0, 0, 0
-            forest = Forest(PATH)
             for _ in range(len(forest.lines) // slope[1] - 1):
                 x += slope[0]
                 y += slope[1]
