@@ -34,15 +34,12 @@ class Forest:
         return x % size in indices
 
     def count_trees(self, slope: Tuple[int, int]) -> int:
-        num_trees = 0
-        for index in range(1, len(self.lines) // slope[1]):
-            if self.is_tree(
-                    x=slope[0] * index,
-                    y=slope[1] * index
-            ):
-                num_trees += 1
-
-        return num_trees
+        return sum([
+            self.is_tree(
+                x=slope[0] * i,
+                y=slope[1] * i
+            ) for i in range(1, len(self.lines) // slope[1])
+        ])
 
 
 PATH = "input"
