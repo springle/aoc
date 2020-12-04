@@ -35,10 +35,11 @@ class Forest:
 
     def count_trees(self, slope: Tuple[int, int]) -> int:
         trees, x, y = 0, 0, 0
-        for _ in range(len(self.lines) // slope[1] - 1):
-            x += slope[0]
-            y += slope[1]
-            if self.is_tree(x, y):
+        for index in range(1, len(self.lines) // slope[1]):
+            if self.is_tree(
+                    x=slope[0] * index,
+                    y=slope[1] * index
+            ):
                 trees += 1
 
         return trees
