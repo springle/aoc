@@ -33,18 +33,21 @@ class Forest:
         size, indices = self.get_pattern(y)
         return x % size in indices
 
+    def count_trees(self, slope: Tuple[int, int]) -> int:
+        trees, x, y = 0, 0, 0
+        for _ in range(len(self.lines) // slope[1] - 1):
+            x += slope[0]
+            y += slope[1]
+            if self.is_tree(x, y):
+                trees += 1
+
+        return trees
+
 
 PATH = "input"
 SLOPE = (3, 1)
 
 if __name__ == "__main__":
     with timer():
-        trees, x, y = 0, 0, 0
-        forest = Forest(PATH)
-        for _ in range(len(forest.lines) // SLOPE[1] - 1):
-            x += SLOPE[0]
-            y += SLOPE[1]
-            if forest.is_tree(x, y):
-                trees += 1
-
+        trees = Forest(PATH).count_trees(SLOPE)
         print(trees)

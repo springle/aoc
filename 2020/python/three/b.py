@@ -16,13 +16,6 @@ if __name__ == "__main__":
         solution = 1
         forest = Forest(PATH)
         for slope in SLOPES:
-            trees, x, y = 0, 0, 0
-            for _ in range(len(forest.lines) // slope[1] - 1):
-                x += slope[0]
-                y += slope[1]
-                if forest.is_tree(x, y):
-                    trees += 1
-
-            solution *= trees
+            solution *= forest.count_trees(slope)
 
         print(solution)
