@@ -1,21 +1,17 @@
+from math import prod
 from util import timer
 
-from three.a import Forest
+from three.a import Forest, Slope
 
-PATH = "input"
 SLOPES = [
-    (1, 1),
-    (3, 1),
-    (5, 1),
-    (7, 1),
-    (1, 2),
+    Slope(x=1, y=1),
+    Slope(x=3, y=1),
+    Slope(x=5, y=1),
+    Slope(x=7, y=1),
+    Slope(x=1, y=2),
 ]
 
 if __name__ == "__main__":
     with timer():
-        solution = 1
-        forest = Forest(PATH)
-        for slope in SLOPES:
-            solution *= forest.count_trees(slope)
-
-        print(solution)
+        forest = Forest("input")
+        print(prod(forest.count_trees(slope) for slope in SLOPES))

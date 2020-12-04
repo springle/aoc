@@ -2,8 +2,15 @@ import functools
 import re
 
 from typing import Tuple, List
+from dataclasses import dataclass
 
 from util import timer
+
+
+@dataclass
+class Slope:
+    x: int
+    y: int
 
 
 class Forest:
@@ -33,19 +40,15 @@ class Forest:
         size, indices = self.get_pattern(y)
         return x % size in indices
 
-    def count_trees(self, slope: Tuple[int, int]) -> int:
+    def count_trees(self, slope: Slope) -> int:
         return sum([
             self.is_tree(
-                x=slope[0] * i,
-                y=slope[1] * i
-            ) for i in range(1, len(self.lines) // slope[1])
+                x=slope.x * i,
+                y=slope.y * i
+            ) for i in range(1, len(self.lines) // slope.y)
         ])
 
 
-PATH = "input"
-SLOPE = (3, 1)
-
 if __name__ == "__main__":
     with timer():
-        trees = Forest(PATH).count_trees(SLOPE)
-        print(trees)
+        print(Forest("input").count_trees(Slope(x=3, y=1)))
