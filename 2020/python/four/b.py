@@ -41,9 +41,7 @@ def read_passports(path: str) -> List[Passport]:
         for record in file.read().split("\n\n"):
             fields = [field.split(":") for field in re.split(r"[ \n]", record.strip())]
             try:
-                passports.append(
-                    Passport(**{field[0]: field[1] for field in fields})
-                )
+                passports.append(Passport(**{field[0]: field[1] for field in fields}))
             except TypeError:
                 pass
 
