@@ -1,7 +1,8 @@
 import re
 from collections import defaultdict
 
-from util import timer
+from util import timer, read_chunks
+from six.a import ANSWER_PATTERN
 
 
 def count_unanimous_answers(path: str) -> list:
@@ -11,20 +12,19 @@ def count_unanimous_answers(path: str) -> list:
     and count how many are unanimous.
     """
     group_answers = []
-    with open(path) as file:
-        for group in file.read().strip().split("\n\n"):
-            answers, responses = defaultdict(int), group.split("\n")
-            for response in responses:
-                for letter in response:
-                    if re.match(r"[a-z]", letter):
-                        answers[letter] += 1
+    for chunk in read_chunks(path):
+        answers, responses = defaultdict(int), list(chunk)
+        for response in responses:
+            for letter in response:
+                if re.match(ANSWER_PATTERN, letter):
+                    answers[letter] += 1
 
-            everyone_said_yes = 0
-            for answer, count in answers.items():
-                if count == len(responses):
-                    everyone_said_yes += 1
+        everyone_said_yes = 0
+        for answer, count in answers.items():
+            if count == len(responses):
+                everyone_said_yes += 1
 
-            group_answers.append(everyone_said_yes)
+        group_answers.append(everyone_said_yes)
 
     return group_answers
 
