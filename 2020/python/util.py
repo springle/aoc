@@ -26,7 +26,7 @@ def input_number_set(path: str = "input") -> set:
     return numbers
 
 
-def submit(solution: str):
+def submit(solution: any):
     print(solution)
     sys.exit(0)
 
