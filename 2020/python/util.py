@@ -3,7 +3,7 @@ import functools
 import sys
 import time
 
-from typing import Iterator, TextIO
+from typing import Iterator, TextIO, List
 
 
 @contextlib.contextmanager
@@ -17,13 +17,8 @@ def timer():
 
 
 @functools.lru_cache()
-def input_number_set(path: str = "input") -> set:
-    numbers = set()
-    with open(path) as file:
-        for line in file:
-            numbers.add(int(line))
-
-    return numbers
+def read_number_set(path: str = "input") -> set:
+    return set(read_number_list(path))
 
 
 def submit(solution: any):
@@ -62,3 +57,13 @@ def read_chunks(path: str) -> Iterator[Iterator[str]]:
     with open(path) as file:
         while not file.closed:
             yield read_chunk_of_file(file)
+
+
+@functools.lru_cache()
+def read_number_list(path: str) -> List[int]:
+    numbers = []
+    with open(path) as file:
+        for line in file:
+            numbers.append(int(line.strip()))
+
+    return numbers

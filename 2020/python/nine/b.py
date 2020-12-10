@@ -1,11 +1,10 @@
-from util import timer, submit
-from nine.a import read_numbers
+from util import timer, submit, read_number_list
 
 A_NUM = 507622668
 
 if __name__ == "__main__":
     with timer():
-        numbers = read_numbers("input")
+        numbers = read_number_list("input")
         for i, num in enumerate(numbers):
             for j, num2 in enumerate(numbers[i + 1:]):
                 num += num2
