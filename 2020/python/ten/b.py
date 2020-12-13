@@ -1,23 +1,11 @@
-import functools
-from typing import Tuple
+from collections import defaultdict
 
 from util import timer, read_number_list
 
-
-@functools.lru_cache()
-def num_arrangements(numbers: Tuple[int]) -> int:
-    if len(numbers) <= 2:
-        return 1
-    else:
-        total = 0
-        for index, number in enumerate(numbers[::-1][1:]):
-            if numbers[-1] - number <= 3:
-                total += num_arrangements(numbers[: -1 - index])
-
-        return total
-
-
 if __name__ == "__main__":
     with timer():
-        numbers = sorted(read_number_list("input"))
-        print(num_arrangements(tuple([0] + numbers + [max(numbers) + 3])))
+        numbers, sol = sorted(read_number_list("input")), defaultdict(int, {0: 1})
+        for num in numbers + [max(numbers) + 3]:
+            sol[num] = sol[num - 3] + sol[num - 2] + sol[num - 1]
+
+        print(sol[max(numbers) + 3])
